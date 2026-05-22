@@ -29,7 +29,7 @@ t_final = 10  # final time
 def propensities(X, k, t):
     R = np.zeros((3, 1))
     R[0] = k[0] * X[0] * X[1]
-    R[1] = k[1] * 0.5 * (np.sin(t * 180) + 2)
+    R[1] = k[1] * 0.5 * (np.sin(t * 180) + 2)   # np.sin(t * 180) is from [-1,1] then the whole term  is from [0.5, 1.5]
     R[2] = k[2] * X[1] * X[2]
     return R
 
@@ -68,7 +68,7 @@ def SSA(Stochiometry, X0, t_final, k):
     while t < t_final:
         # Compute reaction rate functions
         a = propensities(x, k, t)
-        B = np.sum(a)
+        B = np.sum(propensities(x, k, np.pi/2))  # Compute B at t = pi/2 to get the maximum value of the time-varying reaction rate
         
         # 1. When? Compute first Jump Time
         if B == 0:
