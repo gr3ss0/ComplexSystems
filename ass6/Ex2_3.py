@@ -65,15 +65,20 @@ def SSA(Stochiometry, X0, t_final, k):
     X_store.append(x[1, 0])
     T_store.append(t)
 
+
+    ## ME CRITICALLY THINING ...
+    # R2 is the only time-varying reaction and it's independent of the state, so we can compute B once at the time when R2 is maximum.
+    # Although R1 and R3 are dependant on states (X2 and X3), those are decreasing
+    # We can be sure that the maximum value of R1 and R3 is at the initial state, so we can compute B at the initial state as well.
+
+    B = np.sum(propensities(x, k, np.pi/360))  # Compute B at t*180 = pi/2 to get the maximum value of the time-varying reaction rate
+    
+
     while t < t_final:
         # Compute reaction rate functions
         a = propensities(x, k, t)
-        B = np.sum(propensities(x, k, np.pi/2))  # Compute B at t = pi/2 to get the maximum value of the time-varying reaction rate
         
         # 1. When? Compute first Jump Time
-        if B == 0:
-            return np.array(X_store), np.array(T_store)
-            
         tau = Time_To_Next_Reaction(B)
         
         # Stopping criterion
