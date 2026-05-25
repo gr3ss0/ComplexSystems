@@ -89,7 +89,7 @@ def SSA(Stochiometry, X0, t_final, k):
             t = t + tau
             j = Find_Reaction_Index(a, B)
             
-            if j < len(a):
+            if j < len(a): # If the reaction index is valid, we update the state, otherwise the virtual reaction has been selected
                 x = x + Stochiometry[:, [j]]
             
             # Update our Storage
