@@ -101,4 +101,4 @@ for i in range(NrSimulations):
     states, times = SSA(S, X0, t_final, k)
     # Save trajectory
     output = np.concatenate((np.array(times, ndmin=2), np.array(states, ndmin=2)), axis=0)
-    np.savetxt(f'Task2Traj{i+1}.txt', output, delimiter=',', fmt='%1.3f')
+    np.savetxt(f'Task3Traj{i+1}.txt', output, delimiter=',', fmt='%1.3f')
